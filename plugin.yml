@@ -1,0 +1,10 @@
+name: MagicShell
+version: 1.0
+description: Experience the wisdom of the Magic Shell!
+author: TermiK
+main: com.github.taermi.Main
+website: https://github.com/Taermi
+commands:
+  ms:
+    aliases: magicshell
+    permission: ms.allow
