@@ -23,7 +23,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		String prefix = ChatColor.DARK_GRAY + "-----[" + ChatColor.GOLD + "MagicShell" + ChatColor.DARK_GRAY + "]-----";
-		String spoken = ChatColor.GREEN + "And the" + ChatColor.GOLD + " Magic Shell " + ChatColor.GREEN + "has spoken: ";
+		String spoken = ChatColor.GREEN + "The" + ChatColor.GOLD + " Magic Shell " + ChatColor.GREEN + "has spoken: ";
 		if(cmd.getName().equalsIgnoreCase("ms")) {
 			int r = (int) Math.ceil(Math.random() * 7);
 					
