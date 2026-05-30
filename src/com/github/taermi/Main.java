@@ -1,5 +1,8 @@
 package com.github.taermi;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,55 +10,43 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class Main extends JavaPlugin implements CommandExecutor {
-	
+
+	private static final MiniMessage MM = MiniMessage.miniMessage();
+	private static final String[] ANSWERS = {
+		"Yes.",
+		"Neither.",
+		"No.",
+		"Maybe someday.",
+		"Try asking again.",
+		"Nothing.",
+		"I don't think so."
+	};
+
 	public void onEnable() {
-		
+		getCommand("ms").setExecutor(this);
 	}
-	
+
 	public void onDisable() {
-		
+
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
-		String prefix = ChatColor.DARK_GRAY + "-----[" + ChatColor.GOLD + "MagicShell" + ChatColor.DARK_GRAY + "]-----";
-		String spoken = ChatColor.GREEN + "The" + ChatColor.GOLD + " Magic Shell " + ChatColor.GREEN + "has spoken: ";
-		if(cmd.getName().equalsIgnoreCase("ms")) {
-			int r = (int) Math.ceil(Math.random() * 7);
-					
-			String message = "";
-            for(int i = 0; i != args.length; i++)
-            message += args[i] + " ";
-          
-            Bukkit.broadcastMessage(prefix);
-            Bukkit.broadcastMessage(ChatColor.GOLD + p.getDisplayName() + ChatColor.GREEN + " asks: " + message);
-            if(r == 1) {
-            	Bukkit.broadcastMessage(spoken + "Yes.");
-            }
-            if(r == 2) {
-            	Bukkit.broadcastMessage(spoken + "Neither.");
-            }
-            if(r == 3) {
-            	Bukkit.broadcastMessage(spoken + "No.");
-            }
-            if(r == 4) {
-            	Bukkit.broadcastMessage(spoken + "Maybe someday.");
-            }
-            if(r == 5) {
-            	Bukkit.broadcastMessage(spoken + "Try asking again.");
-            }
-            if(r == 6) {
-            	Bukkit.broadcastMessage(spoken + "Nothing.");
-            }
-            if(r == 7) {
-            	Bukkit.broadcastMessage(spoken + "I don't think so.");
-            }
-            
-			
+		if (cmd.getName().equalsIgnoreCase("ms")) {
+			if (args.length == 0) {
+				p.sendMessage(MM.deserialize("<red>Ask the Magic Shell a question!"));
+				return false;
+			}
+
+			String question = String.join(" ", args);
+			String answer = ANSWERS[(int) (Math.random() * ANSWERS.length)];
+
+			Component prefix = MM.deserialize("<dark_gray>-----[<gold>MagicShell<dark_gray>]-----");
+			Bukkit.broadcast(prefix);
+			Bukkit.broadcast(p.displayName().color(NamedTextColor.GOLD).append(MM.deserialize("<green> asks: " + question)));
+			Bukkit.broadcast(MM.deserialize("<green>The<gold> Magic Shell <green>has spoken: " + answer));
 		}
 		return false;
 	}

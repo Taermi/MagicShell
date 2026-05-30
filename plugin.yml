@@ -1,8 +1,9 @@
 name: MagicShell
-version: 1.0
+version: 1.1
 description: Experience the wisdom of the Magic Shell!
-author: TermiK
+author: Taermi
 main: com.github.taermi.Main
+api-version: '26.1'
 website: https://github.com/Taermi
 commands:
   ms:
